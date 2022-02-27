@@ -9,7 +9,7 @@ builds:
   - id: "miku"
     binary: "miku"
     ldflags:
-      - -s -w -X main.version={{ .Version }} -X main.commitSHA={{ .CommitSHA }} -X main.buildDate={{ .Date }}
+      - -s -w -X main.version={{ .Version }} -X main.commitSHA={{ .ShortCommit }} -X main.buildDate={{ .Date }}
     goos:
       - linux
       - darwin
@@ -40,7 +40,7 @@ dockers:
       - ghcr.io/ninodiscord/miku:{{ .Version }}-amd64
       - ghcr.io/ninodiscord/miku:{{ .Major }}.{{ .Minor }}-amd64
     ids:
-      - tsubaki
+      - miku
     goarch: amd64
     build_flag_templates:
       - --platform=linux/amd64
@@ -53,7 +53,7 @@ dockers:
       - --label=org.opencontainers.image.revision={{ .FullCommit }}
       - --label=org.opencontainers.image.licenses=MIT
     dockerfile: Dockerfile
-    use: buildx
+    #use: buildx
 
   - image_templates:
       - ninodiscord/miku:latest-arm64
@@ -63,7 +63,7 @@ dockers:
       - ghcr.io/ninodiscord/miku:{{ .Version }}-arm64
       - ghcr.io/ninodiscord/miku:{{ .Major }}.{{ .Minor }}-arm64
     ids:
-      - tsubaki
+      - miku
     goarch: arm64
     goarm: ""
     build_flag_templates:
@@ -77,7 +77,7 @@ dockers:
       - --label=org.opencontainers.image.revision={{ .FullCommit }}
       - --label=org.opencontainers.image.licenses=MIT
     dockerfile: Dockerfile
-    use: buildx
+    #use: buildx
 
   - image_templates:
       - ninodiscord/miku:latest-armv7
@@ -87,7 +87,7 @@ dockers:
       - ghcr.io/ninodiscord/miku:{{ .Version }}-armv7
       - ghcr.io/ninodiscord/miku:{{ .Major }}.{{ .Minor }}-armv7
     ids:
-      - tsubaki
+      - miku
     goarch: arm
     goarm: "7"
     build_flag_templates:
@@ -101,7 +101,7 @@ dockers:
       - --label=org.opencontainers.image.revision={{ .FullCommit }}
       - --label=org.opencontainers.image.licenses=MIT
     dockerfile: Dockerfile
-    use: buildx
+    #use: buildx
 
 docker_manifests:
   - name_template: ninodiscord/miku:{{ .Version }}
