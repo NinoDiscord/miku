@@ -91,7 +91,7 @@ dockers:
     goarch: arm
     goarm: "7"
     build_flag_templates:
-      - --platform=linux/arm64
+      - --platform=linux/arm/v7
       - --label=org.opencontainers.image.title={{ .ProjectName }}
       - --label=org.opencontainers.image.description="Tiny, stateless microservice to notify that your Discord bot is going under maintenance, made in Go"
       - --label=org.opencontainers.image.url=https://arisu.land
