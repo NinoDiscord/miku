@@ -32,9 +32,9 @@ builds:
 
 dockers:
   - image_templates:
-      - ninodiscord/miku:latest-amd64
-      - ninodiscord/miku:{{ .Version }}-amd64
-      - ninodiscord/miku:{{ .Major }}.{{ .Minor }}-amd64
+      - noelware/miku:latest-amd64
+      - noelware/miku:{{ .Version }}-amd64
+      - noelware/miku:{{ .Major }}.{{ .Minor }}-amd64
       - ghcr.io/ninodiscord/miku:latest
       - ghcr.io/ninodiscord/miku:latest-amd64
       - ghcr.io/ninodiscord/miku:{{ .Version }}-amd64
@@ -56,9 +56,9 @@ dockers:
     use: buildx
 
   - image_templates:
-      - ninodiscord/miku:latest-arm64
-      - ninodiscord/miku:{{ .Version }}-arm64
-      - ninodiscord/miku:{{ .Major }}.{{ .Minor }}-arm64
+      - noelware/miku:latest-arm64
+      - noelware/miku:{{ .Version }}-arm64
+      - noelware/miku:{{ .Major }}.{{ .Minor }}-arm64
       - ghcr.io/ninodiscord/miku:latest-arm64
       - ghcr.io/ninodiscord/miku:{{ .Version }}-arm64
       - ghcr.io/ninodiscord/miku:{{ .Major }}.{{ .Minor }}-arm64
@@ -80,9 +80,9 @@ dockers:
     use: buildx
 
   - image_templates:
-      - ninodiscord/miku:latest-armv7
-      - ninodiscord/miku:{{ .Version }}-armv7
-      - ninodiscord/miku:{{ .Major }}.{{ .Minor }}-armv7
+      - noelware/miku:latest-armv7
+      - noelware/miku:{{ .Version }}-armv7
+      - noelware/miku:{{ .Major }}.{{ .Minor }}-armv7
       - ghcr.io/ninodiscord/miku:latest-armv7
       - ghcr.io/ninodiscord/miku:{{ .Version }}-armv7
       - ghcr.io/ninodiscord/miku:{{ .Major }}.{{ .Minor }}-armv7
@@ -104,11 +104,11 @@ dockers:
     use: buildx
 
 docker_manifests:
-  - name_template: ninodiscord/miku:{{ .Version }}
+  - name_template: noelware/miku:{{ .Version }}
     image_templates:
-      - ninodiscord/miku:{{ .Version }}-amd64
-      - ninodiscord/miku:{{ .Version }}-arm64
-      - ninodiscord/miku:{{ .Version }}-armv7
+      - noelware/miku:{{ .Version }}-amd64
+      - noelware/miku:{{ .Version }}-arm64
+      - noelware/miku:{{ .Version }}-armv7
 
   - name_template: ghcr.io/ninodiscord/miku:{{ .Version }}
     image_templates:
@@ -116,11 +116,11 @@ docker_manifests:
       - ghcr.io/ninodiscord/miku:{{ .Version }}-arm64
       - ghcr.io/ninodiscord/miku:{{ .Version }}-armv7
 
-  - name_template: ninodiscord/miku:{{ .Major }}.{{ .Minor }}
+  - name_template: noelware/miku:{{ .Major }}.{{ .Minor }}
     image_templates:
-      - ninodiscord/miku:{{ .Major }}.{{ .Minor }}-amd64
-      - ninodiscord/miku:{{ .Major }}.{{ .Minor }}-arm64
-      - ninodiscord/miku:{{ .Major }}.{{ .Minor }}-armv7
+      - noelware/miku:{{ .Major }}.{{ .Minor }}-amd64
+      - noelware/miku:{{ .Major }}.{{ .Minor }}-arm64
+      - noelware/miku:{{ .Major }}.{{ .Minor }}-armv7
 
   - name_template: ghcr.io/ninodiscord/miku:{{ .Major }}.{{ .Minor }}
     image_templates:
@@ -128,11 +128,11 @@ docker_manifests:
       - ghcr.io/ninodiscord/miku:{{ .Major }}.{{ .Minor }}-arm64
       - ghcr.io/ninodiscord/miku:{{ .Major }}.{{ .Minor }}-armv7
 
-  - name_template: ninodiscord/miku:latest
+  - name_template: noelware/miku:latest
     image_templates:
-      - ninodiscord/miku:latest-amd64
-      - ninodiscord/miku:latest-arm64
-      - ninodiscord/miku:latest-armv7
+      - noelware/miku:latest-amd64
+      - noelware/miku:latest-arm64
+      - noelware/miku:latest-armv7
 
   - name_template: ghcr.io/ninodiscord/miku:latest
     image_templates:
