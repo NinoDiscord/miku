@@ -1,0 +1,170 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+project_name: miku
+before:
+  hooks:
+    - go mod tidy
+    - go mod download
+
+builds:
+  - id: "miku"
+    binary: "miku"
+    ldflags:
+      - -s -w -X main.version={{ .Version }} -X main.commitSHA={{ .CommitSHA }} -X main.buildDate={{ .Date }}
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+      - "386"
+      - arm
+    goarm:
+      - "6"
+      - "7"
+    ignore:
+      - goos: windows
+        goarch: arm64
+      - goarm:
+        goarch: "6"
+      - goarm:
+        goarch: "7"
+
+dockers:
+  - image_templates:
+      - ninodiscord/miku:latest-amd64
+      - ninodiscord/miku:{{ .Version }}-amd64
+      - ninodiscord/miku:{{ .Major }}.{{ .Minor }}-amd64
+      - ghcr.io/ninodiscord/miku:latest
+      - ghcr.io/ninodiscord/miku:latest-amd64
+      - ghcr.io/ninodiscord/miku:{{ .Version }}-amd64
+      - ghcr.io/ninodiscord/miku:{{ .Major }}.{{ .Minor }}-amd64
+    ids:
+      - tsubaki
+    goarch: amd64
+    build_flag_templates:
+      - --platform=linux/amd64
+      - --label=org.opencontainers.image.title={{ .ProjectName }}
+      - --label=org.opencontainers.image.description="Tiny, stateless microservice to notify that your Discord bot is going under maintenance, made in Go"
+      - --label=org.opencontainers.image.url=https://arisu.land
+      - --label=org.opencontainers.image.source=https://github.com/NinoDiscord/miku
+      - --label=org.opencontainers.image.version={{ .Version }}
+      - --label=org.opencontainers.image.created={{ .Date }}
+      - --label=org.opencontainers.image.revision={{ .FullCommit }}
+      - --label=org.opencontainers.image.licenses=MIT
+    dockerfile: Dockerfile
+    use: buildx
+
+  - image_templates:
+      - ninodiscord/miku:latest-arm64
+      - ninodiscord/miku:{{ .Version }}-arm64
+      - ninodiscord/miku:{{ .Major }}.{{ .Minor }}-arm64
+      - ghcr.io/ninodiscord/miku:latest-arm64
+      - ghcr.io/ninodiscord/miku:{{ .Version }}-arm64
+      - ghcr.io/ninodiscord/miku:{{ .Major }}.{{ .Minor }}-arm64
+    ids:
+      - tsubaki
+    goarch: arm64
+    goarm: ""
+    build_flag_templates:
+      - --platform=linux/arm64
+      - --label=org.opencontainers.image.title={{ .ProjectName }}
+      - --label=org.opencontainers.image.description="Tiny, stateless microservice to notify that your Discord bot is going under maintenance, made in Go"
+      - --label=org.opencontainers.image.url=https://arisu.land
+      - --label=org.opencontainers.image.source=https://github.com/ninodiscord/miku
+      - --label=org.opencontainers.image.version={{ .Version }}
+      - --label=org.opencontainers.image.created={{ .Date }}
+      - --label=org.opencontainers.image.revision={{ .FullCommit }}
+      - --label=org.opencontainers.image.licenses=MIT
+    dockerfile: Dockerfile
+    use: buildx
+
+  - image_templates:
+      - ninodiscord/miku:latest-armv7
+      - ninodiscord/miku:{{ .Version }}-armv7
+      - ninodiscord/miku:{{ .Major }}.{{ .Minor }}-armv7
+      - ghcr.io/ninodiscord/miku:latest-armv7
+      - ghcr.io/ninodiscord/miku:{{ .Version }}-armv7
+      - ghcr.io/ninodiscord/miku:{{ .Major }}.{{ .Minor }}-armv7
+    ids:
+      - tsubaki
+    goarch: arm
+    goarm: "7"
+    build_flag_templates:
+      - --platform=linux/arm64
+      - --label=org.opencontainers.image.title={{ .ProjectName }}
+      - --label=org.opencontainers.image.description="Tiny, stateless microservice to notify that your Discord bot is going under maintenance, made in Go"
+      - --label=org.opencontainers.image.url=https://arisu.land
+      - --label=org.opencontainers.image.source=https://github.com/ninodiscord/miku
+      - --label=org.opencontainers.image.version={{ .Version }}
+      - --label=org.opencontainers.image.created={{ .Date }}
+      - --label=org.opencontainers.image.revision={{ .FullCommit }}
+      - --label=org.opencontainers.image.licenses=MIT
+    dockerfile: Dockerfile
+    use: buildx
+
+docker_manifests:
+  - name_template: ninodiscord/miku:{{ .Version }}
+    image_templates:
+      - ninodiscord/miku:{{ .Version }}-amd64
+      - ninodiscord/miku:{{ .Version }}-arm64
+      - ninodiscord/miku:{{ .Version }}-armv7
+
+  - name_template: ghcr.io/ninodiscord/miku:{{ .Version }}
+    image_templates:
+      - ghcr.io/ninodiscord/miku:{{ .Version }}-amd64
+      - ghcr.io/ninodiscord/miku:{{ .Version }}-arm64
+      - ghcr.io/ninodiscord/miku:{{ .Version }}-armv7
+
+  - name_template: ninodiscord/miku:{{ .Major }}.{{ .Minor }}
+    image_templates:
+      - ninodiscord/miku:{{ .Major }}.{{ .Minor }}-amd64
+      - ninodiscord/miku:{{ .Major }}.{{ .Minor }}-arm64
+      - ninodiscord/miku:{{ .Major }}.{{ .Minor }}-armv7
+
+  - name_template: ghcr.io/ninodiscord/miku:{{ .Major }}.{{ .Minor }}
+    image_templates:
+      - ghcr.io/ninodiscord/miku:{{ .Major }}.{{ .Minor }}-amd64
+      - ghcr.io/ninodiscord/miku:{{ .Major }}.{{ .Minor }}-arm64
+      - ghcr.io/ninodiscord/miku:{{ .Major }}.{{ .Minor }}-armv7
+
+  - name_template: ninodiscord/miku:latest
+    image_templates:
+      - ninodiscord/miku:latest-amd64
+      - ninodiscord/miku:latest-arm64
+      - ninodiscord/miku:latest-armv7
+
+  - name_template: ghcr.io/ninodiscord/miku:latest
+    image_templates:
+      - ghcr.io/ninodiscord/miku:latest-amd64
+      - ghcr.io/ninodiscord/miku:latest-arm64
+      - ghcr.io/ninodiscord/miku:latest-armv7
+
+archives:
+  - id: default
+    builds:
+      - tsubaki
+    format_overrides:
+      - goos: windows
+        format: zip
+    replacements:
+      windows: Windows
+      darwin: Darwin
+      386: i386
+      amd64: x86_64
+
+signs:
+  - artifacts: checksum
+
+checksum:
+  name_template: "checksums.txt"
+
+snapshot:
+  name_template: "{{ incpatch .Version }}-SNAPSHOT"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"

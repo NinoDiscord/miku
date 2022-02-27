@@ -1,0 +1,62 @@
+name: Lint on Commit
+on:
+  push:
+    branches:
+      - 'feature/**'
+      - 'bug/gh-**'
+      - 'issue/gh-**'
+      - staging
+      - master
+
+    paths-ignore:
+      - '.github/**'
+      - '.vscode/**'
+      - 'assets/**'
+      - 'docker/**'
+      - '.idea/**'
+      - '.dockerignore'
+      - '.gitignore'
+      - '**.md'
+      - 'LICENSE'
+      - 'renovate.json'
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+
+      - name: Setup Go 1.17
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - name: Cache Go modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+          key: ${{ runner.os }}-${{ matrix.go-version }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.go-version }}-go-
+
+      - name: Install dependencies
+        run: go mod download && go get
+
+      - name: Build project to see if it compiles
+        run: make build
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          args: --issues-exit-code=1
+          only-new-issues: false
+          skip-go-installation: true
+          skip-pkg-cache: true
+          skip-build-cache: true
