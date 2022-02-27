@@ -21,6 +21,9 @@
 
 FROM alpine:3.15
 
+RUN apk update && apk add --no-cache bash musl-dev libc-dev gcompat
+
 WORKDIR /app
-COPY miku .
+COPY miku /app/miku
+USER 1001
 ENTRYPOINT ["/app/miku"]

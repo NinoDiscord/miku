@@ -52,7 +52,7 @@ deps:
 # Usage: `make build`
 build:
 	@echo Now building Tsubaki for platform $(GOOS)/$(GOARCH)!
-	go build -ldflags "-s -w -X main.version=${VERSION} -X main.commitSha=${COMMIT_SHA} -X \"main.buildDate=${BUILD_DATE}\"" -o ./bin/miku$(EXTENSION)
+	go build -ldflags "-s -w -X main.version=${VERSION} -X main.commitSha=${GIT_COMMIT} -X \"main.buildDate=${BUILD_DATE}\"" -o ./bin/miku$(EXTENSION)
 	@echo Successfully built the binary. Use './bin/miku$(EXTENSION)' to run!
 
 # Usage: `make clean`
