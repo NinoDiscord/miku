@@ -83,13 +83,14 @@ func main() {
 	var currentUser string
 
 	if m, ok := os.LookupEnv("MIKU_MESSAGE_TEMPLATE"); ok {
+		message = m
+
 		t := template.New("miku template")
-		t, err := t.Parse(m)
+		t, err := t.Parse(message)
 		if err != nil {
 			logrus.Fatalf("Unable to parse Go template from `MIKU_MESSAGE_TEMPLATE` environment variable. %v", err)
 		}
 
-		message = m
 		tmpl = t
 	} else {
 		t := template.New("miku default template")
