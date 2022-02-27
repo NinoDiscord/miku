@@ -21,5 +21,6 @@
 
 FROM scratch
 
+WORKDIR /app
 COPY . .
-ENTRYPOINT ["miku"]
+ENTRYPOINT ["/app/miku"]
