@@ -53,7 +53,7 @@ dockers:
       - --label=org.opencontainers.image.revision={{ .FullCommit }}
       - --label=org.opencontainers.image.licenses=MIT
     dockerfile: Dockerfile
-    #use: buildx
+    use: buildx
 
   - image_templates:
       - ninodiscord/miku:latest-arm64
@@ -77,7 +77,7 @@ dockers:
       - --label=org.opencontainers.image.revision={{ .FullCommit }}
       - --label=org.opencontainers.image.licenses=MIT
     dockerfile: Dockerfile
-    #use: buildx
+    use: buildx
 
   - image_templates:
       - ninodiscord/miku:latest-armv7
@@ -101,7 +101,7 @@ dockers:
       - --label=org.opencontainers.image.revision={{ .FullCommit }}
       - --label=org.opencontainers.image.licenses=MIT
     dockerfile: Dockerfile
-    #use: buildx
+    use: buildx
 
 docker_manifests:
   - name_template: ninodiscord/miku:{{ .Version }}
